@@ -9,11 +9,24 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var imgView: UIImageView!
+    var intIncrease = 1
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.callNew(name: intIncrease)
     }
-
-
+    
+    func callNew(name: Int) {
+        let (image, duration) = UIImage.gifImageWithName("\(name)")
+        imgView.image = image
+        DispatchQueue.main.asyncAfter(deadline: .now() + Double(duration)) {
+            self.intIncrease += 1
+            if self.intIncrease < 4 {
+                self.callNew(name: self.intIncrease)
+            } else {
+                print("denny - load all gif")
+            }
+        }
+    }
 }
 
